@@ -8,6 +8,7 @@
 
   <body>
     <div id="camera"></div>
+    <button id="sender">Send to PC</button>
   </body>
 
   <script>
@@ -24,11 +25,11 @@
   <script>
     $(function () {
         var socket = io()
-        setInterval(function() {
+        $('#sender').click(function() {
           Webcam.snap(function(data) {
             socket.emit('transmit', data)
-          })
-        }, 500)
+          })    
+        })
     })
   </script>
 </html>
