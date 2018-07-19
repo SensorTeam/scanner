@@ -1,8 +1,9 @@
 const e = require('express')
+const p = require('path')
 const a = e()
 
 a.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.sendFile(p.join(__dirname + '/index.html'))
 })
 
 a.listen(3000, () => {
