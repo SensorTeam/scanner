@@ -35,5 +35,6 @@ io.on('connection', (socket) => {
 })
 
 http.listen(3000, () => {
-  console.log('READY ON http://localhost:3000')
+  console.log('SERVER READY ON http://localhost:3000')
+  console.log('-------------------------------------')
 })
