@@ -9,6 +9,10 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
   console.log('CONNECTED')
 
+  socket.on('transmit', (data) => {
+    console.log('DATA: ' + data)
+  })
+
   socket.on('disconnect', () => {
     console.log('DISCONNECTED')
   })

@@ -3,12 +3,18 @@
   <meta charset="utf-8"/>
 
   <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
   <script>
-    var socket = io();
+    $(function () {
+        var socket = io()
+        setInterval(function() {
+          socket.emit('transmit', 'PING!')
+        }, 100)
+    })
   </script>
 
   <body>
-    <p>Greetings</p>
+    <button>Click Me</button>
   </body>
 </html>
