@@ -5,15 +5,15 @@ const io = require('socket.io')(http)
 const im = require('image-data-uri')
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html')
+  res.sendFile(__dirname + '/public/index.html')
 })
 
 app.get('/w', (req, res) => {
-  res.sendFile(__dirname + '/webcam.min.js')
+  res.sendFile(__dirname + '/public/webcam.min.js')
 })
 
 app.get('/j', (req, res) => {
-  res.sendFile(__dirname + '/jquery-1.11.1.js')
+  res.sendFile(__dirname + '/public/jquery-1.11.1.js')
 })
 
 io.on('connection', (socket) => {
