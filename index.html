@@ -2,6 +2,7 @@
   <title>Socket Test</title>
   <meta charset="utf-8"/>
 
+  <script src="/w"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
@@ -9,12 +10,25 @@
     $(function () {
         var socket = io()
         setInterval(function() {
-          socket.emit('transmit', 'PING!')
-        }, 100)
+          Webcam.snap(function(data) {
+            socket.emit('transmit', data)
+          })
+        }, 500)
     })
   </script>
 
   <body>
-    <button>Click Me</button>
+    <div id="camera"></div>
   </body>
+
+  <script>
+    Webcam.set({
+      width: 320,
+      height: 240,
+      image_format: 'jpeg',
+      jpeg_quality: 90
+    })
+
+    Webcam.attach('#camera')
+  </script>
 </html>

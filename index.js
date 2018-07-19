@@ -6,6 +6,10 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html')
 })
 
+app.get('/w', (req, res) => {
+  res.sendFile(__dirname + '/webcam.min.js')
+})
+
 io.on('connection', (socket) => {
   console.log('CONNECTED')
 
