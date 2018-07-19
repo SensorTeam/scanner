@@ -1,20 +1,51 @@
 <html>
   <title>Socket Test</title>
   <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
   <script src="/w"></script>
   <script src="/j"></script>
   <script src="/socket.io/socket.io.js"></script>
 
+  <style>
+    html {
+      font-family: -apple-system, sans-serif;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    #camera {
+      width: 64px;
+      overflow: hidden;
+      height: 64px;
+      background: black;
+    }
+
+    #sender {
+      width: 100%;
+      padding: 32px 0;
+      text-align: center;
+      background: green;
+      color: white;
+    }
+  </style>
+
   <body>
     <div id="camera"></div>
-    <button id="sender">Send to PC</button>
+
+    <div id="sender">Send to PC</div>
+
+    <p>Sent:</p>
+
+    <div id="result"></div>
   </body>
 
   <script>
     Webcam.set({
-      width: 640,
-      height: 480,
+      width: 2448,
+      height: 3264,
       image_format: 'jpeg',
       jpeg_quality: 90
     })
@@ -28,6 +59,7 @@
         $('#sender').click(function() {
           Webcam.snap(function(data) {
             socket.emit('transmit', data)
+            document.getElementById('result').innerHTML = '<img src="'+data+'"/>';
           })    
         })
     })
