@@ -1,6 +1,13 @@
+const fs = require('fs')
+const op = {
+  key: fs.readFileSync('cert/key.pem').toString(),
+  cert: fs.readFileSync('cert/cert.pem').toString(),
+  passphrase: fs.readFileSync('cert/pass.txt').toString().trim()
+}
+
 const app = require('express')()
-const http = require('http').Server(app)
-const io = require('socket.io')(http)
+const https = require('https').createServer(op, app)
+const io = require('socket.io')(https)
 
 const im = require('image-data-uri')
 
@@ -34,7 +41,7 @@ io.on('connection', (socket) => {
 
 })
 
-http.listen(3000, () => {
+https.listen(3000, () => {
   console.log('SERVER READY ON http://localhost:3000')
   console.log('-------------------------------------')
 })

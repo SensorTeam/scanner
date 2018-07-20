@@ -1,2 +1,4 @@
-node_modules/
+cert/
 data/
+graphs/
+node_modules/

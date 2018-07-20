@@ -8,27 +8,42 @@
   <script src="/socket.io/socket.io.js"></script>
 
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
     html {
+      padding: 16px;
+      text-align: center;
+      line-height: 1.5;
       font-family: -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0 auto;
+      max-width: 320px;
     }
 
     img {
       max-width: 100%;
     }
 
-    #camera {
-      width: 64px;
-      overflow: hidden;
-      height: 64px;
-      background: black;
+    #camera, #camera video {
+      width: 100% !important;
+      height: auto !important;
+      background: #C7C7CC;
     }
 
     #sender {
       width: 100%;
-      padding: 32px 0;
+      padding: 16px 0;
+      margin: 32px 0;
       text-align: center;
-      background: green;
+      background: #28C64E;
       color: white;
+      cursor: pointer;
+      border-radius: 6px;
     }
   </style>
 
@@ -37,7 +52,7 @@
 
     <div id="sender">Send to PC</div>
 
-    <p>Sent:</p>
+    <p>The following image has been sent to the computer:</p>
 
     <div id="result"></div>
   </body>
