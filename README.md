@@ -25,5 +25,5 @@ mkdir cert && openssl req -newkey rsa:2048 -new -nodes -keyout cert/key.pem -out
 1. Run `npm install` to install dependencies
 2. Run `npm start` to start the script
 3. Open [https://localhost:3000](https://localhost:3000) to open the web client
-4. Alternatively, open [https://<your-computer-name-here>:3000] to open it in another device connected to the same network
+4. Alternatively, open [https://your-computer-name-here:3000] to open it in another device connected to the same network
 5. Take a picture and view it inside `/data/file0.jpg`
