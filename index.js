@@ -1,3 +1,7 @@
+// Main script to start server
+// ----------------------------
+
+// Ensure the following files exist to enable HTTPS
 const fs = require('fs')
 const op = {
   key: fs.readFileSync('cert/key.pem').toString(),
@@ -13,12 +17,9 @@ const im = require('image-data-uri')
 
 let counter = 0
 
+// Web routes
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html')
-})
-
-app.get('/new', (req, res) => {
-  res.sendFile(__dirname + '/public/new-index.html')
 })
 
 app.get('/w', (req, res) => {
@@ -29,24 +30,27 @@ app.get('/j', (req, res) => {
   res.sendFile(__dirname + '/public/jquery-1.11.1.js')
 })
 
+// Server-scanner communications
 io.on('connection', (socket) => {
 
-  console.log('CONNECTED')
+  console.log('✅ CONNECTED')
 
   socket.on('transmit', (data) => {
     const path = __dirname + '/data/file' + counter.toString() + '.jpg'
     counter++
     im.outputFile(data, path)
-    console.log('RECEIVED: ' + path)
+    console.log('📸 RECEIVED: ' + path)
   })
 
   socket.on('disconnect', () => {
-    console.log('DISCONNECTED')
+    console.log('❌ DISCONNECTED')
   })
 
 })
 
+// Start server
 https.listen(3000, () => {
-  console.log('SERVER READY ON https://localhost:3000')
+  console.log('-------------------------------------')
+  console.log('👍 READY ON https://localhost:3000')
   console.log('-------------------------------------')
 })
