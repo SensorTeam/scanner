@@ -11,6 +11,8 @@ const io = require('socket.io')(https)
 
 const im = require('image-data-uri')
 
+let counter = 0
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html')
 })
@@ -24,7 +26,6 @@ app.get('/j', (req, res) => {
 })
 
 io.on('connection', (socket) => {
-  let counter = 0
 
   console.log('CONNECTED')
 
@@ -42,6 +43,6 @@ io.on('connection', (socket) => {
 })
 
 https.listen(3000, () => {
-  console.log('SERVER READY ON http://localhost:3000')
+  console.log('SERVER READY ON https://localhost:3000')
   console.log('-------------------------------------')
 })
