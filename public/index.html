@@ -1,5 +1,5 @@
 <html>
-  <title>Socket Test</title>
+  <title>SCANNER</title>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
@@ -11,12 +11,14 @@
     * {
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
     html {
       padding: 16px;
-      text-align: center;
       line-height: 1.5;
+      text-align: center;
+      -webkit-font-smoothing: antialiased;
       font-family: -apple-system, sans-serif;
     }
 
@@ -29,54 +31,77 @@
       max-width: 100%;
     }
 
-    #camera, #camera video {
-      width: 100% !important;
-      height: auto !important;
-      background: #C7C7CC;
+    .button {
+      color: white;
+      padding: 16px 0;
+      cursor: pointer;
+      font-weight: 500;
+      user-select: none;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      background-color: #222;
     }
 
-    #sender {
-      width: 100%;
-      padding: 16px 0;
-      margin: 32px 0;
-      text-align: center;
+    #send {
       background: #28C64E;
-      color: white;
-      cursor: pointer;
-      border-radius: 6px;
     }
+
+    .preview {
+      display: flex;
+      height: 240px;
+      background: black;
+      overflow-y: hidden;
+      position: relative;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      align-items: center;
+    }
+
+    #camera {
+      display: none;
+    }
+
+    .disabled {
+      display: none;
+    }
+
   </style>
 
   <body>
+    <div class="preview" id="result"></div>
+    <div class="button" id="capture">Take Photo</div>
+    <div class="button disabled" id="send">Send to PC</div>
     <div id="camera"></div>
-
-    <div id="sender">Send to PC</div>
-
-    <p>The following image has been sent to the computer:</p>
-
-    <div id="result"></div>
   </body>
 
-  <script>
+  <script type="text/javascript">
+    let data = null
+    const socket = io()
     Webcam.set({
       width: 2448,
       height: 3264,
       image_format: 'jpeg',
       jpeg_quality: 90
     })
-
     Webcam.attach('#camera')
-  </script>
 
-  <script>
+    // UI functionality
     $(function () {
-        var socket = io()
-        $('#sender').click(function() {
-          Webcam.snap(function(data) {
-            socket.emit('transmit', data)
-            document.getElementById('result').innerHTML = '<img src="'+data+'"/>';
-          })    
+      $('#capture').click(function() {
+        Webcam.snap(function(image) {
+          document.getElementById('result').innerHTML = '<img src="'+image+'"/>'
+          $('#send').removeClass('disabled')
+          data = image
         })
+      })
+      $('#send').click(function() {
+        document.getElementById('result').innerHTML = ''
+        $('#send').addClass('disabled')
+        if (data != null) {
+          socket.emit('transmit', data)
+          data = null
+        }
+      })
     })
   </script>
 </html>
