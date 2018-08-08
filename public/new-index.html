@@ -1,0 +1,60 @@
+<html>
+	<title>SCANNER</title>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		html {
+			padding: 16px;
+			line-height: 1.5;
+			text-align: center;
+			font-family: -apple-system, sans-serif;
+		}
+
+		body {
+			margin: 0 auto;
+			max-width: 320px;
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		.button {
+			color: white;
+			padding: 16px 0;
+			cursor: pointer;
+			border-radius: 6px;
+			margin-bottom: 16px;
+			background-color: #222;
+		}
+
+		.preview {
+			display: flex;
+			height: 240px;
+			background: black;
+			overflow-y: hidden;
+			border-radius: 6px;
+			margin-bottom: 16px;
+			align-items: center;
+		}
+
+		#capture {
+			background: #333333;
+		}
+
+		#send {
+			background: #28C64E;
+		}
+
+	</style>
+
+	<body>
+		<div class="preview"></div>
+		<div class="button" id="capture">Take Photo</div>
+		<div class="button" id="send">Send to PC</div>

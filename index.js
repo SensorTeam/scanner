@@ -17,6 +17,10 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html')
 })
 
+app.get('/new', (req, res) => {
+  res.sendFile(__dirname + '/public/new-index.html')
+})
+
 app.get('/w', (req, res) => {
   res.sendFile(__dirname + '/public/webcam.min.js')
 })
