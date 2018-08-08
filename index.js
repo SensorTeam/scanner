@@ -1,8 +1,17 @@
+const fs = require('fs')
+const op = {
+  key: fs.readFileSync('cert/key.pem').toString(),
+  cert: fs.readFileSync('cert/cert.pem').toString(),
+  passphrase: fs.readFileSync('cert/pass.txt').toString().trim()
+}
+
 const app = require('express')()
-const http = require('http').Server(app)
-const io = require('socket.io')(http)
+const https = require('https').createServer(op, app)
+const io = require('socket.io')(https)
 
 const im = require('image-data-uri')
+
+let counter = 0
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html')
@@ -17,7 +26,6 @@ app.get('/j', (req, res) => {
 })
 
 io.on('connection', (socket) => {
-  let counter = 0
 
   console.log('CONNECTED')
 
@@ -34,7 +42,7 @@ io.on('connection', (socket) => {
 
 })
 
-http.listen(3000, () => {
-  console.log('SERVER READY ON http://localhost:3000')
+https.listen(3000, () => {
+  console.log('SERVER READY ON https://localhost:3000')
   console.log('-------------------------------------')
 })
